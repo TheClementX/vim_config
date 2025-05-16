@@ -1,11 +1,12 @@
 "set nvim preferences
-:set number
+:set number relativenumber
 :set autoindent
 :set tabstop=4
 :set shiftwidth=4
 :set smarttab
 :set softtabstop=4
 :set mouse=a
+:filetype plugin on 
 
 "install plugins
 call plug#begin()
@@ -20,6 +21,7 @@ Plug 'https://github.com/907th/vim-auto-save' "autosave
 Plug 'nvim-lua/plenary.nvim' "telescope dependency 
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' } "fuzzy finder
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim' "indent lines
+Plug 'lervag/vimtex', { 'tag': 'v2.15' }
 
 call plug#end()
 
