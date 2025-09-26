@@ -24,6 +24,8 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' } "fuzzy finder
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim' "indent lines
 Plug 'lervag/vimtex', { 'tag': 'v2.15' }
 Plug 'davidgranstrom/scnvim' "SuperCollider 
+Plug 'nosduco/remote-sshfs.nvim' "sshfs for remote file editing
+
 
 call plug#end()
 
@@ -92,6 +94,30 @@ require'scnvim'.setup({
 })
 EOF
 
+"sshfs remote file editing config
+lua << EOF
+require('remote-sshfs').setup{
+  connections = {
+    ssh_configs = {
+      vim.fn.expand("$HOME") .. "/.ssh/config"
+    },
+  },
+  mounts = {
+    base_dir = vim.fn.expand("$HOME") .. "/.sshfs/",
+    unmount_on_exit = true,
+	options = {
+	  "cache=yes", 
+	  "kernel_cache", 
+	  "compression=no", 
+	}, 
+  },
+}
+EOF
+
+"vimtex confif
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_method = 'latexmk'
+
 "auto save setup
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_events = ["InsertLeave", "TextChanged"] " enable autosave on changes
@@ -105,6 +131,7 @@ nnoremap <C-f> :NERDTreeToggle<CR>
 nnoremap <C-l> :Telescope find_files<CR>
 nnoremap <C-\> :terminal<CR>
 nnoremap <C-s> :SCNvimStart<CR>
+nnoremap <C-r> :RemoteSSHFSConnect<CR>
 
 
 let g:NERDTreeDirArrowExpandable="+"
